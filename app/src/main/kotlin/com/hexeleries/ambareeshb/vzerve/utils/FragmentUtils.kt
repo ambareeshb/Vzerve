@@ -59,7 +59,7 @@ class FragmentUtils(fragmentManager: FragmentManager) {
 
      * @param add
      */
-    fun addToBackStack(add: Boolean, tag: String): FragmentUtils {
+    fun addToBackStack(add: Boolean, tag: String = "TAG"): FragmentUtils {
         if (add) fragmentTransaction.addToBackStack(tag)
         return this
 

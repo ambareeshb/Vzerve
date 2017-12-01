@@ -1,4 +1,4 @@
-package com.hexeleries.ambareeshb.vzerve.dagger.modules
+package com.hexeleries.ambareeshb.vzerve.dagger.scopes
 
 import javax.inject.Scope
 

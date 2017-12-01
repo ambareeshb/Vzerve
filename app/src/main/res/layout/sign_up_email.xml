@@ -30,6 +30,7 @@
         android:inputType="textEmailAddress" />
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/nextPhone"
         style="@style/NextButton"
         android:layout_alignParentBottom="true" />
 
