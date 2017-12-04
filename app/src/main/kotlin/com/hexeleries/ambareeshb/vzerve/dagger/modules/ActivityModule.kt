@@ -1,6 +1,7 @@
 package com.hexeleries.ambareeshb.vzerve.dagger.modules
 
 import android.support.v7.app.AppCompatActivity
+import com.hexeleries.ambareeshb.vzerve.dagger.scopes.ActivityScope
 import dagger.Module
 import dagger.Provides
 
@@ -9,7 +10,7 @@ import dagger.Provides
  * For the life scope  of an Activity.
  */
 
-@Module(includes = arrayOf(FragmentModule::class))
+@Module
 class ActivityModule(private val activity: AppCompatActivity) {
     @Provides
     @ActivityScope

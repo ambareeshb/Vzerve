@@ -1,4 +1,4 @@
-package com.hexeleries.ambareeshb.vzerve.ui
+package com.hexeleries.ambareeshb.vzerve.ui.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

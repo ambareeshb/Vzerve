@@ -9,12 +9,12 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/labelWelcome"
+        style="@style/BoldTitleBlack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/textEmail"
         android:layout_margin="@dimen/margin_small"
         android:gravity="center"
-        style="@style/BoldTitleBlack"
         android:text="@string/sign_up_welcome_message"
 
         />
@@ -29,7 +29,15 @@
         android:hint="@string/email_address"
         android:inputType="textEmailAddress" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textEmail"
+        android:text="<u>Already user. Sign In ?<\u>" />
+
+
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/nextPhone"
         style="@style/NextButton"
         android:layout_alignParentBottom="true" />
 

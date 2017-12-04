@@ -6,9 +6,15 @@ import android.support.v4.app.FragmentTransaction
 
 /**
  * Created by ambareeshb on 16/09/17.
+ * For Fragment manipulations.
  */
-class FragmentUtils(fragmentManager: FragmentManager) {
-    private val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+class FragmentUtils(private val fragmentManager: FragmentManager) {
+    private lateinit var fragmentTransaction: FragmentTransaction
+
+    fun beginTransaction():FragmentUtils {
+        fragmentTransaction = fragmentManager.beginTransaction()
+        return this
+    }
 
     /**
      * Add a given fragment to the given container.
@@ -59,7 +65,7 @@ class FragmentUtils(fragmentManager: FragmentManager) {
 
      * @param add
      */
-    fun addToBackStack(add: Boolean, tag: String): FragmentUtils {
+    fun addToBackStack(add: Boolean, tag: String = "TAG"): FragmentUtils {
         if (add) fragmentTransaction.addToBackStack(tag)
         return this
 
