@@ -32,6 +32,7 @@ class SignUpFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initToolbar()
+        textAlreadyMember?.setOnClickListener { listener?.gotoSignInScreen() }
         nextPhone?.let {
             toolbarBackButton?.visibility = View.GONE
             it.setOnClickListener { listener?.nextFromEmail(textEmail.text.toString()) }
@@ -97,5 +98,6 @@ class SignUpFragment : Fragment() {
         fun nextFromEmail(email: String)
         fun nextFromPhone(phone: String)
         fun submitSignUp(password: String)
+        fun gotoSignInScreen()
     }
 }

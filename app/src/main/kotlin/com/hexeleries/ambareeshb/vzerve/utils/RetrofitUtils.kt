@@ -5,10 +5,12 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
 
 /**
  * Created by ambareeshb on 16/09/17.
+ * Retrofit utility class for API handling.
  */
 object RetrofitUtils {
     private var retrofit: Retrofit? = null
@@ -19,6 +21,7 @@ object RetrofitUtils {
 
             retrofit = Retrofit.Builder()
                     .baseUrl(BuildConfig.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
                     .addConverterFactory(JacksonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .client(client)
@@ -34,7 +37,7 @@ object RetrofitUtils {
     val client: OkHttpClient
         get() {
             val logging = HttpLoggingInterceptor()
-            logging.level = HttpLoggingInterceptor.Level.BASIC
+            logging.level = HttpLoggingInterceptor.Level.BODY
             val client = OkHttpClient.Builder()
                     .addInterceptor(logging)
                     .build()

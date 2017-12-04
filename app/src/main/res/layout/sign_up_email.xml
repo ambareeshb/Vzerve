@@ -29,11 +29,14 @@
         android:hint="@string/email_address"
         android:inputType="textEmailAddress" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textAlreadyMember"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textEmail"
-        android:text="<u>Already user. Sign In ?<\u>" />
+        android:textColor="@color/colorPrimary"
+        android:gravity="center"
+        android:text="@string/sign_up_already_member" />
 
 
     <android.support.v7.widget.AppCompatButton

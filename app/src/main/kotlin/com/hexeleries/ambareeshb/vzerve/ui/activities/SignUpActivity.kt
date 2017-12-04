@@ -1,10 +1,12 @@
 package com.hexeleries.ambareeshb.vzerve.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import com.hexeleries.ambareeshb.vzerve.App
 import com.hexeleries.ambareeshb.vzerve.R
+import com.hexeleries.ambareeshb.vzerve.SignUpResponse
 import com.hexeleries.ambareeshb.vzerve.dagger.component.DaggerActivityComponent
 import com.hexeleries.ambareeshb.vzerve.dagger.modules.ActivityModule
 import com.hexeleries.ambareeshb.vzerve.db.User
@@ -22,6 +24,10 @@ class SignUpActivity : AppCompatActivity(), SignUpFragment.SignUpScreens {
     @Inject
     lateinit var fragmentUtils: FragmentUtils
     var user: User = User()
+    override fun gotoSignInScreen() {
+        startActivity(Intent(this, SignInActivity::class.java))
+    }
+
 
     /**
      * Next button clicked from email screen.
@@ -57,27 +63,21 @@ class SignUpActivity : AppCompatActivity(), SignUpFragment.SignUpScreens {
      * After tapping submit on password screen.
      */
     override fun submitSignUp(password: String) {
+        user.password = password//Store password
 
-        Single.fromCallable {
-            val user = (application as App).userComponent
-                    .userDao()
-                    .getUser()
-            Timber.i("The user cred is ${user.email} ${user.phone}")
-        }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
         //Submit sign up API call
         (application as App).applicationComponent.apiInterface().signUp(user.email, user.password, user.phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Subscriber<User>() {
+                .subscribe(object : Subscriber<SignUpResponse>() {
                     override fun onCompleted() {
                         Timber.i("User sign up successful")
                     }
 
-                    override fun onNext(t: User?) {
+                    override fun onNext(t: SignUpResponse?) {
                         Timber.i("User sign up successful")
+                        startActivity(Intent(this@SignUpActivity,HomeActivity::class.java))
+                        finish()
                     }
 
                     override fun onError(e: Throwable?) {

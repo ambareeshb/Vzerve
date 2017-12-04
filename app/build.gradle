@@ -68,6 +68,7 @@ dependencies {
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:converter-jackson:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
     //Rx
