@@ -1,4 +1,4 @@
-package com.hexeleries.ambareeshb.vzerve
+package com.hexeleries.ambareeshb.vzerve.api
 
 /**
  * Created by ambareesh on 4/12/17.

@@ -3,12 +3,12 @@ package com.hexeleries.ambareeshb.vzerve.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.hexeleries.ambareeshb.vzerve.ApiResponse
+import com.hexeleries.ambareeshb.vzerve.api.ApiResponse
 import com.hexeleries.ambareeshb.vzerve.App
 import com.hexeleries.ambareeshb.vzerve.R
 import com.hexeleries.ambareeshb.vzerve.dagger.component.DaggerActivityComponent
 import com.hexeleries.ambareeshb.vzerve.dagger.modules.ActivityModule
-import com.hexeleries.ambareeshb.vzerve.ui.SignInFragment
+import com.hexeleries.ambareeshb.vzerve.ui.fragments.SignInFragment
 import com.hexeleries.ambareeshb.vzerve.utils.FragmentUtils
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers

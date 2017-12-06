@@ -74,7 +74,6 @@ dependencies {
     //Rx
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
     implementation 'io.reactivex:rxandroid:1.2.1'
-//    implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
     //Gson
     implementation 'com.google.code.gson:gson:2.8.2'
     //Dagger
@@ -83,9 +82,11 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     //Logger
     implementation 'com.jakewharton.timber:timber:4.6.0'
-    //Annotations
+    //Easy permissions
+    implementation 'pub.devrel:easypermissions:1.0.1'
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    //Annotations
     kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
     kapt "android.arch.lifecycle:compiler:$ARCH_COMPONENTS_VERSION"
     kapt "android.arch.persistence.room:compiler:$ARCH_COMPONENTS_VERSION"

@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="@dimen/margin_medium"
-    tools:context="com.hexeleries.ambareeshb.vzerve.ui.SignInFragment">
+    tools:context="com.hexeleries.ambareeshb.vzerve.ui.fragments.SignInFragment">
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/textEmail"

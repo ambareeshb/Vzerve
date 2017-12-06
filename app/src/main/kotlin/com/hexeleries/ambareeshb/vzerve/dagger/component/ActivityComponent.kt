@@ -2,6 +2,7 @@ package com.hexeleries.ambareeshb.vzerve.dagger.component
 
 import com.hexeleries.ambareeshb.vzerve.dagger.modules.FragmentModule
 import com.hexeleries.ambareeshb.vzerve.dagger.scopes.ActivityScope
+import com.hexeleries.ambareeshb.vzerve.ui.activities.HomeActivity
 import com.hexeleries.ambareeshb.vzerve.ui.activities.SignInActivity
 import com.hexeleries.ambareeshb.vzerve.ui.activities.SignUpActivity
 import com.hexeleries.ambareeshb.vzerve.ui.activities.SplashActivity
@@ -20,4 +21,5 @@ interface ActivityComponent {
     fun inject(activity: SplashActivity)
     fun inject(activity: SignUpActivity)
     fun inject(activity: SignInActivity)
+    fun inject(homeActivity: HomeActivity)
 }

@@ -1,4 +1,4 @@
-package com.hexeleries.ambareeshb.vzerve.ui
+package com.hexeleries.ambareeshb.vzerve.ui.fragments
 
 import android.content.Context
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.hexeleries.ambareeshb.vzerve
+package com.hexeleries.ambareeshb.vzerve.api
 
 /**
  * Created by ambareesh on 4/12/17.
@@ -6,6 +6,6 @@ package com.hexeleries.ambareeshb.vzerve
 data class SignUpResponse(val tocken: String,
                           val email: String,
                           val mobile: String,
-                          val user_id: String):ApiResponse()
+                          val user_id: String): ApiResponse()
 
 

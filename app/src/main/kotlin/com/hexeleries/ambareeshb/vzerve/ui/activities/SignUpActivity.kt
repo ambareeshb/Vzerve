@@ -6,14 +6,13 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import com.hexeleries.ambareeshb.vzerve.App
 import com.hexeleries.ambareeshb.vzerve.R
-import com.hexeleries.ambareeshb.vzerve.SignUpResponse
+import com.hexeleries.ambareeshb.vzerve.api.SignUpResponse
 import com.hexeleries.ambareeshb.vzerve.dagger.component.DaggerActivityComponent
 import com.hexeleries.ambareeshb.vzerve.dagger.modules.ActivityModule
 import com.hexeleries.ambareeshb.vzerve.db.User
-import com.hexeleries.ambareeshb.vzerve.ui.SignUpFragment
+import com.hexeleries.ambareeshb.vzerve.ui.fragments.SignUpFragment
 import com.hexeleries.ambareeshb.vzerve.utils.FragmentUtils
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import rx.Single
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers

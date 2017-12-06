@@ -1,6 +1,7 @@
-package com.hexeleries.ambareeshb.vzerve
+package com.hexeleries.ambareeshb.vzerve.api
 
-import com.hexeleries.ambareeshb.vzerve.db.User
+import com.hexeleries.ambareeshb.vzerve.api.SignInResponse
+import com.hexeleries.ambareeshb.vzerve.api.SignUpResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 import rx.Observable
@@ -25,5 +26,5 @@ interface ApiInterface {
                     @Query("longitude") longitude: String)
 
     @GET("get-first-question")
-    fun getFirstQuestion(@Query("serviceid") serviceid: Long)
+    fun getFirstQuestion(@Query("serviceid") serviceId: Long)
 }

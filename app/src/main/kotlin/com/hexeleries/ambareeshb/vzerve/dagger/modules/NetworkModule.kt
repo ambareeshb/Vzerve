@@ -1,6 +1,6 @@
 package com.hexeleries.ambareeshb.vzerve.dagger.modules
 
-import com.hexeleries.ambareeshb.vzerve.ApiInterface
+import com.hexeleries.ambareeshb.vzerve.api.ApiInterface
 import com.hexeleries.ambareeshb.vzerve.utils.RetrofitUtils
 import dagger.Module
 import dagger.Provides
@@ -14,7 +14,7 @@ class NetworkModule {
     //Provide an instance of our ApiInterface
     @Singleton
     @Provides
-    fun provideApiInterface():ApiInterface =
+    fun provideApiInterface(): ApiInterface =
             RetrofitUtils.initRetrofit(ApiInterface::class.java)
     }
 

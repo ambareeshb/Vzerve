@@ -1,6 +1,6 @@
 package com.hexeleries.ambareeshb.vzerve.dagger.component
 
-import com.hexeleries.ambareeshb.vzerve.ApiInterface
+import com.hexeleries.ambareeshb.vzerve.api.ApiInterface
 import com.hexeleries.ambareeshb.vzerve.dagger.modules.DatabaseModule
 import com.hexeleries.ambareeshb.vzerve.dagger.modules.NetworkModule
 import com.hexeleries.ambareeshb.vzerve.dagger.modules.UserModule
