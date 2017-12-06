@@ -40,8 +40,9 @@ class SignInActivity : AppCompatActivity(), SignInFragment.SignIn {
                         finish()
                     }
 
-                    override fun onNext(t: ApiResponse?) {
+                    override fun onNext(response: ApiResponse?) {
                         Timber.i("Completed sign in")
+                        response?.let { (application as App).userComponent.userDao().login(email) }
                     }
                 })
 

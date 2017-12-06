@@ -70,13 +70,15 @@ class SignUpActivity : AppCompatActivity(), SignUpFragment.SignUpScreens {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Subscriber<SignUpResponse>() {
                     override fun onCompleted() {
-                        Timber.i("User sign up successful")
+                        startActivity(Intent(this@SignUpActivity, HomeActivity::class.java))
+                        finish()
                     }
 
-                    override fun onNext(t: SignUpResponse?) {
-                        Timber.i("User sign up successful")
-                        startActivity(Intent(this@SignUpActivity,HomeActivity::class.java))
-                        finish()
+                    override fun onNext(response: SignUpResponse?) {
+                        response?.let {
+                            Timber.i("User sign up successful")
+                            (application as App).userComponent.userDao().login(response.email)
+                        }
                     }
 
                     override fun onError(e: Throwable?) {

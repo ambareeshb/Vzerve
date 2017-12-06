@@ -2,29 +2,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     android:padding="@dimen/margin_medium"
     tools:context="com.hexeleries.ambareeshb.vzerve.ui.fragments.SignInFragment">
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/textEmail"
         android:layout_width="match_parent"
-        android:inputType="textEmailAddress"
-        android:hint="@string/email_address"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_small"
-        android:layout_height="wrap_content" />
+        android:hint="@string/email_address"
+        android:inputType="textEmailAddress" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/textPassword"
-        android:layout_margin="@dimen/margin_small"
         android:layout_width="match_parent"
-        android:inputType="textPassword"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small"
         android:hint="@string/password"
-        android:layout_height="wrap_content" />
+        android:inputType="textPassword" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textLinkSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in_new_user" />
+
+
     <android.support.v7.widget.AppCompatButton
-        style="@style/NextButton"
         android:id="@+id/buttonSignIn"
-        android:text="@string/sign_in"
-        />
+        style="@style/NextButton"
+        android:text="@string/sign_in" />
 </LinearLayout>

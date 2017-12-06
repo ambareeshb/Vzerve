@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 import com.hexeleries.ambareeshb.vzerve.R
 import com.hexeleries.ambareeshb.vzerve.utils.Constants
@@ -26,8 +28,11 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
-
+        //Start location update
+        LocationServices.getFusedLocationProviderClient(activity).lastLocation
+                .addOnCompleteListener(object: )
         Timber.i("Permission granted $perms")
+
     }
 
 

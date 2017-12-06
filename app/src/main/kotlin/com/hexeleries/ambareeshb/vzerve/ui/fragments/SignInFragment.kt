@@ -2,12 +2,14 @@ package com.hexeleries.ambareeshb.vzerve.ui.fragments
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hexeleries.ambareeshb.vzerve.R
+import com.hexeleries.ambareeshb.vzerve.ui.activities.SignUpActivity
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 
@@ -31,7 +33,9 @@ class SignInFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        buttonSignIn?.setOnClickListener { listener?.signIn(textEmail.text.toString(), textPassword.text.toString()) }
+        buttonSignIn?.setOnClickListener { listener.signIn(textEmail.text.toString(), textPassword.text.toString()) }
+        textLinkSignUp?.setOnClickListener { startActivity(Intent(activity, SignUpActivity::class.java)) }
+
     }
 
     companion object {
