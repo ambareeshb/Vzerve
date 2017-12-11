@@ -27,8 +27,6 @@ class SplashActivity : AppCompatActivity() {
         DaggerActivityComponent.builder()
                 .activityModule(ActivityModule(this))
                 .build()
-
-
     }
 
 
@@ -55,10 +53,9 @@ class SplashActivity : AppCompatActivity() {
                             .userDao()
                             .signedInUser()
                     Timber.d("User name is ${user?.email}")
-                    user?.let { startActivity(Intent(this@SplashActivity, SignInActivity::class.java)) }
+                    user?.let { startActivity(Intent(this@SplashActivity, HomeActivity::class.java)) }
                             ?: startActivity(Intent(this@SplashActivity, SignUpActivity::class.java))
                     finish()
-
                 }
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())

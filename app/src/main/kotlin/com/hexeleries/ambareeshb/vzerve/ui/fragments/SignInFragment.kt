@@ -34,7 +34,7 @@ class SignInFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         buttonSignIn?.setOnClickListener { listener.signIn(textEmail.text.toString(), textPassword.text.toString()) }
-        textLinkSignUp?.setOnClickListener { startActivity(Intent(activity, SignUpActivity::class.java)) }
+        textLinkSignUp?.setOnClickListener { startActivity(Intent(activity, SignUpActivity::class.java));activity.finish() }
 
     }
 

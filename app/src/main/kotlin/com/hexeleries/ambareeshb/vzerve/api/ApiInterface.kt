@@ -1,7 +1,6 @@
 package com.hexeleries.ambareeshb.vzerve.api
 
-import com.hexeleries.ambareeshb.vzerve.api.SignInResponse
-import com.hexeleries.ambareeshb.vzerve.api.SignUpResponse
+import com.hexeleries.ambareeshb.vzerve.Service
 import retrofit2.http.GET
 import retrofit2.http.Query
 import rx.Observable
@@ -22,8 +21,8 @@ interface ApiInterface {
                @Query("mobile") phone: String): rx.Observable<SignUpResponse>
 
     @GET("get-services-of-location")
-    fun getServices(@Query("lattitude") latitude: String,
-                    @Query("longitude") longitude: String)
+    fun getServices(@Query("latitude") latitude: String,
+                    @Query("longitude") longitude: String):Observable<ServiceResponse>
 
     @GET("get-first-question")
     fun getFirstQuestion(@Query("serviceid") serviceId: Long)

@@ -3,6 +3,7 @@ package com.hexeleries.ambareeshb.vzerve.dagger.component
 import com.hexeleries.ambareeshb.vzerve.dagger.modules.UserModule
 import com.hexeleries.ambareeshb.vzerve.dagger.scopes.UserScope
 import com.hexeleries.ambareeshb.vzerve.db.UserDao
+import com.hexeleries.ambareeshb.vzerve.repositories.HomeRepo
 import dagger.Subcomponent
 
 /**
@@ -13,6 +14,8 @@ import dagger.Subcomponent
 @UserScope
 interface UserComponent {
     fun userDao(): UserDao
+    fun userHomeRepo(): HomeRepo
+
 
 /*@Subcomponent.Builder
     interface Builder {

@@ -13,6 +13,7 @@ import com.hexeleries.ambareeshb.vzerve.db.User
 import com.hexeleries.ambareeshb.vzerve.ui.fragments.SignUpFragment
 import com.hexeleries.ambareeshb.vzerve.utils.FragmentUtils
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import rx.Single
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -25,6 +26,7 @@ class SignUpActivity : AppCompatActivity(), SignUpFragment.SignUpScreens {
     var user: User = User()
     override fun gotoSignInScreen() {
         startActivity(Intent(this, SignInActivity::class.java))
+        finish()
     }
 
 
@@ -77,7 +79,13 @@ class SignUpActivity : AppCompatActivity(), SignUpFragment.SignUpScreens {
                     override fun onNext(response: SignUpResponse?) {
                         response?.let {
                             Timber.i("User sign up successful")
-                            (application as App).userComponent.userDao().login(response.email)
+                            Single.fromCallable {
+                                (application as App).userComponent.userDao().login(response.email)
+
+                            }
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+
                         }
                     }
 

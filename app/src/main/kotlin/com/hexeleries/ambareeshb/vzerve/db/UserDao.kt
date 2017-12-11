@@ -15,11 +15,11 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUser(user: User)
 
-    @Query("UPDATE User SET signed_in = true WHERE email = :email")
+    @Query("UPDATE User SET signed_in = 1 WHERE email = :email")
     fun login(email: String)
 
-    @Query("UPDATE User SET signed_in = false WHERE email = :email")
-    fun logout(email: String)
+    @Query("UPDATE User SET signed_in = 0")
+    fun logout()
 
     @Query("SELECT * FROM User WHERE signed_in = 1")
     fun signedInUser(): User

@@ -10,6 +10,7 @@ import com.hexeleries.ambareeshb.vzerve.dagger.component.DaggerActivityComponent
 import com.hexeleries.ambareeshb.vzerve.dagger.modules.ActivityModule
 import com.hexeleries.ambareeshb.vzerve.ui.fragments.SignInFragment
 import com.hexeleries.ambareeshb.vzerve.utils.FragmentUtils
+import rx.Single
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -42,7 +43,10 @@ class SignInActivity : AppCompatActivity(), SignInFragment.SignIn {
 
                     override fun onNext(response: ApiResponse?) {
                         Timber.i("Completed sign in")
-                        response?.let { (application as App).userComponent.userDao().login(email) }
+                        Single.fromCallable {
+                            response?.let { (application as App).userComponent.userDao().login(email) }
+                        }.subscribeOn(Schedulers.io())
+
                     }
                 })
 

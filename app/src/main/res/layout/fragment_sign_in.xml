@@ -27,6 +27,8 @@
         android:id="@+id/textLinkSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center"
         android:text="@string/sign_in_new_user" />
 
 

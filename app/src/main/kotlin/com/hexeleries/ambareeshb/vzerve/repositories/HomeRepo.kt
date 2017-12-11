@@ -4,20 +4,31 @@ import android.arch.lifecycle.MediatorLiveData
 import com.hexeleries.ambareeshb.vzerve.Service
 import com.hexeleries.ambareeshb.vzerve.api.ApiInterface
 import com.hexeleries.ambareeshb.vzerve.db.ServiceDao
+import rx.schedulers.Schedulers
 
 /**
  * Created by ambareeshb on 05/12/17.
  * From where the home ui [HomeActivity],[HomeFragment],[HomeViewModel]
  */
-class HomeRepo(val serviceDao: ServiceDao,val apiInterface:ApiInterface) {
+class HomeRepo(private val apiInterface: ApiInterface, private val serviceDao: ServiceDao) {
+
     val serviceLiveData: MediatorLiveData<List<Service>> by lazy {
-        refresh()
+        refreshLocation()
         getServiceList()
     }
 
-    private fun refresh() {
-//        apiInterface.getServices()
-        //TODO API CALL SERVICE
+    /**
+     * To obtain services around the specified [latitude] and [longitude]
+     */
+     fun refreshLocation(latitude: Double = 100.0, longitude: Double = 200.0) {//Initially invalid lat and long.
+        if (latitude.isValidLatitude() and longitude.isValidLongitude()) {
+            apiInterface.getServices(latitude = latitude.toString(), longitude = longitude.toString())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.computation())
+                    .subscribe({ response -> serviceDao.insertServiceList(response.services) },
+                            { error -> error.printStackTrace() })
+
+        }
     }
 
     /**
@@ -30,5 +41,6 @@ class HomeRepo(val serviceDao: ServiceDao,val apiInterface:ApiInterface) {
 
     }
 
-
+    fun Double.isValidLatitude(): Boolean = (this <= 90.0) and (this >= -90.0)// If latitude is valid.
+    fun Double.isValidLongitude(): Boolean = (this <= 180) and (this >= -180.0) // If longitude is valid.
 }
