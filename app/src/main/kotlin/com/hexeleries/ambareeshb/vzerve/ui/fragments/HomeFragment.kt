@@ -7,6 +7,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.location.Location
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -33,6 +34,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>?) {
         Timber.i("Permission denied $perms")
+        Snackbar.make(homeLayout, "Give location permission Settings -> VZERVE", Snackbar.LENGTH_LONG)
     }
 
     @SuppressLint("MissingPermission")
@@ -62,6 +64,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         initRecycler()
         ViewModelProviders.of(this)[HomeViewModel::class.java].getServices()
                 .observe(this, Observer<List<Service>> { services ->
+                    progressActivity.visibility = View.GONE
                     (recyclerServices?.adapter as ServiceAdapter).services = services
                 })
         EasyPermissions.requestPermissions(this, Constants.PERMISSION_LOCATION_RATIONALE,

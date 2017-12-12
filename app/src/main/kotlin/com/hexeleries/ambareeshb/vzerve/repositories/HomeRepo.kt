@@ -41,6 +41,6 @@ class HomeRepo(private val apiInterface: ApiInterface, private val serviceDao: S
 
     }
 
-    fun Double.isValidLatitude(): Boolean = (this <= 90.0) and (this >= -90.0)// If latitude is valid.
-    fun Double.isValidLongitude(): Boolean = (this <= 180) and (this >= -180.0) // If longitude is valid.
+    private fun Double.isValidLatitude(): Boolean = (this <= 90.0) and (this >= -90.0)// If latitude is valid.
+    private fun Double.isValidLongitude(): Boolean = (this <= 180) and (this >= -180.0) // If longitude is valid.
 }
