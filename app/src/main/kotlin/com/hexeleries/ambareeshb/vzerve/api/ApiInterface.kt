@@ -1,6 +1,5 @@
 package com.hexeleries.ambareeshb.vzerve.api
 
-import com.hexeleries.ambareeshb.vzerve.Service
 import retrofit2.http.GET
 import retrofit2.http.Query
 import rx.Observable
@@ -13,7 +12,7 @@ interface ApiInterface {
 
     @GET("signin")
     fun signIn(@Query("email") email: String,
-               @Query("password") password: String):Observable<SignInResponse>
+               @Query("password") password: String): Observable<SignInResponse>
 
     @GET("signup")
     fun signUp(@Query("email") email: String,
@@ -22,8 +21,12 @@ interface ApiInterface {
 
     @GET("get-services-of-location")
     fun getServices(@Query("latitude") latitude: String,
-                    @Query("longitude") longitude: String):Observable<ServiceResponse>
+                    @Query("longitude") longitude: String): Observable<ServiceResponse>
 
     @GET("get-first-question")
-    fun getFirstQuestion(@Query("serviceid") serviceId: Long)
+    fun getFirstQuestion(@Query("serviceid") serviceId: Long): Observable<AnswerResponse>
+
+    @GET("get-next-question")
+    fun getNextQuestion(@Query("questionid") questionId: Long): Observable<AnswerResponse>
+
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.hexeleries.ambareeshb.vzerve.R
 import com.hexeleries.ambareeshb.vzerve.Service
+import com.hexeleries.ambareeshb.vzerve.ui.fragments.QuestionFragment
 import kotlinx.android.synthetic.main.service_layout.view.*
 
 /**
@@ -34,6 +35,7 @@ class ServiceAdapter : RecyclerView.Adapter<ServiceAdapter.ViewHolder>() {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindService(service: Service?) {
             itemView.textServiceName?.text = service?.servicename
+            itemView?.setOnClickListener { QuestionFragment.newInstance(0, service?.serviceid ?: 0) }
         }
 
 
