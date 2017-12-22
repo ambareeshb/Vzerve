@@ -14,12 +14,24 @@
         <TextView
             android:id="@+id/questionText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:textSize="17sp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerAnswer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_light"
+            android:layout_margin="@dimen/margin_large"
+            android:text="No Answers currently"
+            android:textSize="18sp" />
+
 
         <Button
             android:id="@+id/nextQuestionButton"

@@ -3,6 +3,7 @@ package com.hexeleries.ambareeshb.vzerve.ui.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.location.Location
@@ -40,11 +41,12 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     @SuppressLint("MissingPermission")
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
         //Start location update
+
         LocationServices.getFusedLocationProviderClient(activity).lastLocation
                 .addOnCompleteListener { task: Task<Location>? ->
                     ViewModelProviders.of(this)[HomeViewModel::class.java]
-                            .refreshLocation(task?.result?.latitude ?: 25.80069259999999
-                                    , task?.result?.longitude ?: 55.97619940000004)
+                            .refreshLocation( 25.80069259999999
+                                    ,  55.97619940000004)
                 }
 
         Timber.i("Permission granted $perms")
@@ -75,7 +77,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         recyclerServices?.apply {
             layoutManager = LinearLayoutManager(activity,
                     LinearLayoutManager.VERTICAL, false)
-            adapter = ServiceAdapter()
+            adapter = ServiceAdapter(fragmentManager = fragmentManager)
         }
 
     }

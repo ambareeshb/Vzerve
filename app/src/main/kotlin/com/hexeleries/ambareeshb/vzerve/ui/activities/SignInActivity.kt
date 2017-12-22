@@ -2,14 +2,18 @@ package com.hexeleries.ambareeshb.vzerve.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import com.hexeleries.ambareeshb.vzerve.api.ApiResponse
 import com.hexeleries.ambareeshb.vzerve.App
 import com.hexeleries.ambareeshb.vzerve.R
+import com.hexeleries.ambareeshb.vzerve.api.ApiConstants
 import com.hexeleries.ambareeshb.vzerve.dagger.component.DaggerActivityComponent
 import com.hexeleries.ambareeshb.vzerve.dagger.modules.ActivityModule
+import com.hexeleries.ambareeshb.vzerve.db.User
 import com.hexeleries.ambareeshb.vzerve.ui.fragments.SignInFragment
 import com.hexeleries.ambareeshb.vzerve.utils.FragmentUtils
+import kotlinx.android.synthetic.main.activity_sign_in.*
 import rx.Single
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
@@ -36,17 +40,23 @@ class SignInActivity : AppCompatActivity(), SignInFragment.SignIn {
 
                     override fun onCompleted() {
                         Timber.i("Completed sign in")
-                        startActivity(Intent(this@SignInActivity
-                                , HomeActivity::class.java))
-                        finish()
                     }
 
                     override fun onNext(response: ApiResponse?) {
-                        Timber.i("Completed sign in")
-                        Single.fromCallable {
-                            response?.let { (application as App).userComponent.userDao().login(email) }
-                        }.subscribeOn(Schedulers.io())
+                        when (response?.response_code) {
+                            ApiConstants.STATUS_CODE_SUCCESS -> {
+                                Single.fromCallable {
+                                    response.let {
+                                        (application as App).userComponent.userDao()
+                                                .insertUser(User(email = email, signedIn = true))
+                                    }
+                                }.subscribeOn(Schedulers.io())
+                                startActivity(Intent(this@SignInActivity, HomeActivity::class.java))
+                                finish()
+                            }
+                            else -> Snackbar.make(rootLayout, response?.response_text ?: "Something went wrong", Snackbar.LENGTH_SHORT).show()
 
+                        }
                     }
                 })
 

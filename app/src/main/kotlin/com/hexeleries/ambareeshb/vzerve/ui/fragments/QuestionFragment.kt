@@ -1,6 +1,7 @@
 package com.hexeleries.ambareeshb.vzerve.ui.fragments
 
 
+import android.app.Dialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -28,8 +29,8 @@ class QuestionFragment : DialogFragment() {
     companion object {
         private val BUNDLE_KEY_ANSWER_LAYOUT = "BUNDLE_ANSWER_TYPE"
         private val BUNDLE_KEY_SERVICE_ID = "BUNDLE_SERVICE_ID"
-        fun newInstance(answerType: Int, serviceId: Long): DialogFragment {
-            return DialogFragment().apply {
+        fun newInstance(answerType: Int, serviceId: Long): QuestionFragment {
+            return QuestionFragment().apply {
                 val bundle = Bundle()
                 bundle.putInt(BUNDLE_KEY_ANSWER_LAYOUT, answerType)
                 bundle.putLong(BUNDLE_KEY_SERVICE_ID, serviceId)

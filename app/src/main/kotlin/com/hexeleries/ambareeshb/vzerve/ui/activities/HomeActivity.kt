@@ -9,8 +9,7 @@ import com.hexeleries.ambareeshb.vzerve.dagger.component.DaggerActivityComponent
 import com.hexeleries.ambareeshb.vzerve.dagger.modules.ActivityModule
 import com.hexeleries.ambareeshb.vzerve.ui.fragments.HomeFragment
 import com.hexeleries.ambareeshb.vzerve.utils.FragmentUtils
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.home_toolbar.*
 import rx.Single
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -33,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
                 .replace(R.id.frameContainer, HomeFragment.newInstance())
                 .commit()
         //Temporary logout.
-        toolbarBackButton.setOnClickListener {
+        toolbarLogout.setOnClickListener {
             Single.fromCallable{
                 (application as App).userComponent.userDao().logout()
             }

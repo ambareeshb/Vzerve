@@ -20,7 +20,6 @@ data class User(
         @SerializedName("email") var email: String = "",
         @SerializedName("mobile") var phone: String = "",
         @SerializedName("user_id") @ColumnInfo(name = "user_id") var userId: Long = 0,
-        @SerializedName("password") @ColumnInfo(name = "password") var password: String = "",
         @SerializedName("signed_in") @ColumnInfo(name = "signed_in") var signedIn: Boolean = false) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
@@ -28,7 +27,6 @@ data class User(
             parcel.readString(),
             parcel.readString(),
             parcel.readLong(),
-            parcel.readString(),
             signedIn = parcel.readInt() != 0)
 
 
@@ -39,7 +37,6 @@ data class User(
             writeString(email)
             writeLong(userId)
             writeString(phone)
-            writeString(password)
             writeInt(if (signedIn) 1 else 0)
         }
 

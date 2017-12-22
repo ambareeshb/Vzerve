@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import com.hexeleries.ambareeshb.vzerve.App
 import com.hexeleries.ambareeshb.vzerve.R
+import com.hexeleries.ambareeshb.vzerve.api.ApiConstants
 import com.hexeleries.ambareeshb.vzerve.api.SignUpResponse
 import com.hexeleries.ambareeshb.vzerve.dagger.component.DaggerActivityComponent
 import com.hexeleries.ambareeshb.vzerve.dagger.modules.ActivityModule
@@ -64,28 +65,30 @@ class SignUpActivity : AppCompatActivity(), SignUpFragment.SignUpScreens {
      * After tapping submit on password screen.
      */
     override fun submitSignUp(password: String) {
-        user.password = password//Store password
 
         //Submit sign up API call
-        (application as App).applicationComponent.apiInterface().signUp(user.email, user.password, user.phone)
+        (application as App).applicationComponent.apiInterface().signUp(user.email, password, user.phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Subscriber<SignUpResponse>() {
                     override fun onCompleted() {
-                        startActivity(Intent(this@SignUpActivity, HomeActivity::class.java))
-                        finish()
                     }
 
                     override fun onNext(response: SignUpResponse?) {
-                        response?.let {
-                            Timber.i("User sign up successful")
-                            Single.fromCallable {
-                                (application as App).userComponent.userDao().login(response.email)
-
+                        when (response?.response_code) {
+                            ApiConstants.STATUS_CODE_SUCCESS -> {
+                                response.let {
+                                    Timber.i("User sign up successful")
+                                    Single.fromCallable {
+                                        (application as App).userComponent.userDao().login(response.email)
+                                    }
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                }
+                                startActivity(Intent(this@SignUpActivity, HomeActivity::class.java))
+                                finish()
                             }
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-
+                            else -> Snackbar.make(rootLayout, response?.response_text ?: "Something went wrong", Snackbar.LENGTH_SHORT)
                         }
                     }
 

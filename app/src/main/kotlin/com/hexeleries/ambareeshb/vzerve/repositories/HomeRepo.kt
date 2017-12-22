@@ -1,7 +1,6 @@
 package com.hexeleries.ambareeshb.vzerve.repositories
 
 import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.Observer
 import com.hexeleries.ambareeshb.vzerve.Service
 import com.hexeleries.ambareeshb.vzerve.api.ApiInterface
 import com.hexeleries.ambareeshb.vzerve.db.ServiceDao
