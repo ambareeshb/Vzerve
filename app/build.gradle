@@ -48,7 +48,7 @@ android {
 ext {
     DAGGER_VERSION = '2.11'
     RETROFIT_VERSION = '2.3.0'
-    ARCH_COMPONENTS_VERSION = '1.0.0-rc1'
+    ARCH_COMPONENTS_VERSION = '1.0.0'
     SUPPORT_VERSION = '26.1.0'
 }
 
@@ -95,6 +95,9 @@ dependencies {
     kapt "android.arch.lifecycle:compiler:$ARCH_COMPONENTS_VERSION"
     kapt "android.arch.persistence.room:compiler:$ARCH_COMPONENTS_VERSION"
     kapt 'com.android.databinding:compiler:3.1.0-alpha05'
+
+    //multi dex support
+    implementation 'com.android.support:multidex:1.0.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

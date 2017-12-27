@@ -51,8 +51,11 @@ class SignInActivity : AppCompatActivity(), SignInFragment.SignIn {
                                                 .insertUser(User(email = email, signedIn = true))
                                     }
                                 }.subscribeOn(Schedulers.io())
-                                startActivity(Intent(this@SignInActivity, HomeActivity::class.java))
-                                finish()
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe({
+                                            startActivity(Intent(this@SignInActivity, HomeActivity::class.java))
+                                            finish()
+                                        }, { it.printStackTrace() })
                             }
                             else -> Snackbar.make(rootLayout, response?.response_text ?: "Something went wrong", Snackbar.LENGTH_SHORT).show()
 

@@ -1,17 +1,18 @@
 package com.hexeleries.ambareeshb.vzerve.ui.fragments
 
 
-import android.app.Dialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.hexeleries.ambareeshb.vzerve.R
+import com.hexeleries.ambareeshb.vzerve.api.ApiConstants
+import com.hexeleries.ambareeshb.vzerve.ui.AnswerAdapter
 import kotlinx.android.synthetic.main.fragment_question.*
 
 
@@ -41,15 +42,30 @@ class QuestionFragment : DialogFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        recyclerAnswer?.apply {
+            layoutManager = LinearLayoutManager(this@QuestionFragment.context,LinearLayoutManager.VERTICAL,false)
+            adapter = AnswerAdapter()
 
-        questionViewModel.question.observe(this, Observer { answer ->
-            questionText.text = answer?.question
+        }
+
+        questionViewModel.question.observe(this, Observer { question ->
+            questionText.text = question?.question
             loadingView?.let {
                 it.visibility = View.GONE
                 questionLayout?.visibility = View.VISIBLE
             }
 
         })
+        questionViewModel.answers.observe(this, Observer { answer ->
+            if(answer?.response_code == ApiConstants.STATUS_CODE_SUCCESS) {
+                (recyclerAnswer?.adapter as AnswerAdapter).answers = answer.answers
+            }
+            else{
+                this@QuestionFragment.dismiss()
+            }
+        })
+
+
 
         loadingView?.let {
             it.visibility = View.VISIBLE
@@ -62,7 +78,8 @@ class QuestionFragment : DialogFragment() {
                 it.visibility = View.VISIBLE
                 questionLayout?.visibility = View.GONE
             }
-            questionViewModel.nextQuestion(questionViewModel.question.value?.questionId ?: 0)
+            questionViewModel.nextQuestion(questionViewModel.answers.value?.answers?.get(0)?.next_question
+                    ?: 0)
         }
     }
 

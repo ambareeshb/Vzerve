@@ -24,9 +24,12 @@ interface ApiInterface {
                     @Query("longitude") longitude: String): Observable<ServiceResponse>
 
     @GET("get-first-question")
-    fun getFirstQuestion(@Query("serviceid") serviceId: Long): Observable<AnswerResponse>
+    fun getFirstQuestion(@Query("serviceid") serviceId: Long): Observable<QuestionResponse>
 
     @GET("get-next-question")
-    fun getNextQuestion(@Query("questionid") questionId: Long): Observable<AnswerResponse>
+    fun getNextQuestion(@Query("questionid") questionId: Long): Observable<QuestionResponse>
+
+    @GET("get-answer-options")
+    fun getAnswers(@Query("questionid") questionId: Long): Observable<AnswerResponse>
 
 }

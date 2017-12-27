@@ -1,6 +1,7 @@
 package com.hexeleries.ambareeshb.vzerve
 
 import android.app.Application
+import android.support.multidex.MultiDexApplication
 import com.hexeleries.ambareeshb.vzerve.dagger.component.ApplicationComponent
 import com.hexeleries.ambareeshb.vzerve.dagger.component.DaggerApplicationComponent
 import com.hexeleries.ambareeshb.vzerve.dagger.component.UserComponent
@@ -13,7 +14,7 @@ import timber.log.Timber
  * Created by ambareeshb on 25/11/17.
  * The main entry point of the Application.
  */
-class App : Application() {
+class App : MultiDexApplication() {
     lateinit var applicationComponent: ApplicationComponent
     override fun onCreate() {
         super.onCreate()
