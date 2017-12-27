@@ -33,17 +33,14 @@ class AnswerAdapter : RecyclerView.Adapter<AnswerAdapter.ViewHolder>() {
         holder?.bindView(answers?.get(position))
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        return when (viewType) {
-            VIEW_TYPE_RADIO -> ViewHolderRadioAnswer(LayoutInflater.from(parent?.context)
-                    .inflate(R.layout.answers_radio, parent, false))
-            else -> ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.answers_radio, parent, false))
-        }
-    }
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder =
+            when (viewType) {
+                VIEW_TYPE_RADIO -> ViewHolderRadioAnswer(LayoutInflater.from(parent?.context)
+                        .inflate(R.layout.answers_radio, parent, false))
+                else -> ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.answers_radio, parent, false))
+            }
 
-    override fun getItemViewType(position: Int): Int {
-        return VIEW_TYPE_RADIO
-    }
+    override fun getItemViewType(position: Int): Int = VIEW_TYPE_RADIO
 
     /**
      * If all answers are radio buttons.
@@ -52,7 +49,14 @@ class AnswerAdapter : RecyclerView.Adapter<AnswerAdapter.ViewHolder>() {
 
         fun bindRadioView(answerResponse: Answer?) {
             itemView?.radioBtnAnswer?.isChecked = false
-            itemView?.radioBtnAnswer?.setOnClickListener { (it as RadioButton).isChecked = true }
+            itemView?.radioBtnAnswer?.setOnClickListener {
+
+                it.post({
+                    notifyDataSetChanged()
+
+                    (it as RadioButton).isChecked = true
+                })
+            }
             itemView.answerText.text = answerResponse?.answer_value
         }
     }

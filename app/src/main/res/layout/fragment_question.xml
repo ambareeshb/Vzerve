@@ -1,39 +1,44 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/questionLayout"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
+        android:id="@+id/questionLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_medium"
-        tools:context="com.hexeleries.ambareeshb.vzerve.ui.fragments.QuestionFragment">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/questionText"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_medium"
+            tools:context="com.hexeleries.ambareeshb.vzerve.ui.fragments.QuestionFragment">
+
+            <TextView
+                android:id="@+id/questionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="17sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <Button
+                android:id="@+id/nextQuestionButton"
+                style="@style/NextButton" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/loadingView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_regular"
-            android:textSize="17sp" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerAnswer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-        <Button
-            android:id="@+id/nextQuestionButton"
-            style="@style/NextButton" />
-
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/loadingView"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-</FrameLayout>
+            android:layout_gravity="center"
+            android:visibility="gone" />
+    </FrameLayout>
+</ScrollView>
