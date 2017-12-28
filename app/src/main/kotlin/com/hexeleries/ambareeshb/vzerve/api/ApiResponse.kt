@@ -5,7 +5,7 @@ package com.hexeleries.ambareeshb.vzerve.api
  * ApiResponse.
  */
 open class ApiResponse {
-    lateinit var response_type: String
-    lateinit var response_text: String
-    lateinit var response_code: String
+    var response_type: String = ""
+    var response_text: String = "Error"
+    var response_code: String = ApiConstants.STATUS_CODE_ERROR
 }

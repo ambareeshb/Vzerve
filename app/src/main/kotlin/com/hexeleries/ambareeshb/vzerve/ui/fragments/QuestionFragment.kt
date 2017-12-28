@@ -11,8 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hexeleries.ambareeshb.vzerve.R
+import com.hexeleries.ambareeshb.vzerve.api.AnswerResponse
 import com.hexeleries.ambareeshb.vzerve.api.ApiConstants
 import com.hexeleries.ambareeshb.vzerve.ui.AnswerAdapter
+import com.hexeleries.ambareeshb.vzerve.ui.activities.HomeActivity
 import kotlinx.android.synthetic.main.fragment_question.*
 
 
@@ -42,35 +44,37 @@ class QuestionFragment : DialogFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //Show progress bar.
+        loadingView?.let {
+            it.visibility = View.VISIBLE
+            questionLayout?.visibility = View.GONE
+        }
         recyclerAnswer?.apply {
-            layoutManager = LinearLayoutManager(this@QuestionFragment.context,LinearLayoutManager.VERTICAL,false)
+            layoutManager = LinearLayoutManager(this@QuestionFragment.context, LinearLayoutManager.VERTICAL, false)
             adapter = AnswerAdapter()
 
         }
 
         questionViewModel.question.observe(this, Observer { question ->
             questionText.text = question?.question
-            loadingView?.let {
-                it.visibility = View.GONE
-                questionLayout?.visibility = View.VISIBLE
-            }
 
         })
         questionViewModel.answers.observe(this, Observer { answer ->
-            if(answer?.response_code == ApiConstants.STATUS_CODE_SUCCESS) {
-                (recyclerAnswer?.adapter as AnswerAdapter).answers = answer.answers
-            }
-            else{
+            if ((answer?.response_code == ApiConstants.STATUS_CODE_SUCCESS) and (answer is AnswerResponse)) {
+                (recyclerAnswer?.adapter as AnswerAdapter).answers = (answer as AnswerResponse).answers
+                //Remove loader on successful loading of answers.
+                loadingView?.let {
+                    it.visibility = View.GONE
+                    questionLayout?.visibility = View.VISIBLE
+                }
+            } else {
                 this@QuestionFragment.dismiss()
+                (activity as HomeActivity).snackBarMessage = "Something went wrong"
             }
         })
 
 
 
-        loadingView?.let {
-            it.visibility = View.VISIBLE
-            questionLayout?.visibility = View.GONE
-        }
         questionViewModel.firstQuestion(arguments?.getLong(BUNDLE_KEY_SERVICE_ID) ?: 0)
 
         nextQuestionButton?.setOnClickListener {
@@ -78,7 +82,7 @@ class QuestionFragment : DialogFragment() {
                 it.visibility = View.VISIBLE
                 questionLayout?.visibility = View.GONE
             }
-            questionViewModel.nextQuestion(questionViewModel.answers.value?.answers?.get(0)?.next_question
+            questionViewModel.nextQuestion((recyclerAnswer.adapter as AnswerAdapter).selectedAnswer?.next_question
                     ?: 0)
         }
     }

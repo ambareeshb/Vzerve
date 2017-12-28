@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.hexeleries.ambareeshb.vzerve.api.ApiResponse
 import com.hexeleries.ambareeshb.vzerve.App
 import com.hexeleries.ambareeshb.vzerve.R
@@ -29,6 +30,7 @@ class SignInActivity : AppCompatActivity(), SignInFragment.SignIn {
      * When user press sign in.
      */
     override fun signIn(email: String, password: String) {
+        progressLoading?.visibility = View.VISIBLE
         (application as App).applicationComponent.apiInterface()
                 .signIn(email, password)
                 .subscribeOn(Schedulers.io())
@@ -36,10 +38,13 @@ class SignInActivity : AppCompatActivity(), SignInFragment.SignIn {
                 .subscribe(object : Subscriber<ApiResponse>() {
                     override fun onError(e: Throwable?) {
                         Timber.e(e)
+                        //Cancel progress bar
+                        progressLoading?.visibility = View.GONE
                     }
 
                     override fun onCompleted() {
                         Timber.i("Completed sign in")
+                        progressLoading?.visibility = View.GONE
                     }
 
                     override fun onNext(response: ApiResponse?) {
@@ -76,7 +81,7 @@ class SignInActivity : AppCompatActivity(), SignInFragment.SignIn {
         fragmentUtils
                 .beginTransaction()
                 .replace(R.id.frameContainer, SignInFragment.newInstance())
-                .addToBackStack(true)
+                .addToBackStack(false)
                 .commit()
     }
 }

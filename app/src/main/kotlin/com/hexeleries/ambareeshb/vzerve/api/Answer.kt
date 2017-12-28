@@ -7,6 +7,7 @@ package com.hexeleries.ambareeshb.vzerve.api
 data class Answer(val answer_id: String,
                   val answer_value: String,
                   val next_question: Long,
-                  var selected: Boolean
+                  var selected:Selection
 
 )
+enum class Selection{NOT_SELECTED,TO_SELECT,SELECTED}

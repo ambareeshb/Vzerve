@@ -4,9 +4,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import com.hexeleries.ambareeshb.vzerve.R
 import com.hexeleries.ambareeshb.vzerve.api.Answer
+import com.hexeleries.ambareeshb.vzerve.api.Selection
 import kotlinx.android.synthetic.main.answers_radio.view.*
 
 /**
@@ -22,8 +22,10 @@ class AnswerAdapter : RecyclerView.Adapter<AnswerAdapter.ViewHolder>() {
         set(value) {
             field = value
             notifyDataSetChanged()
-
         }
+
+    val selectedAnswer: Answer?
+        get() = answers?.firstOrNull { it.selected == Selection.SELECTED } ?: answers?.get(0)
 
     override fun getItemCount(): Int =
             answers?.size ?: 0
@@ -48,13 +50,16 @@ class AnswerAdapter : RecyclerView.Adapter<AnswerAdapter.ViewHolder>() {
     inner class ViewHolderRadioAnswer(view: View) : ViewHolder(view) {
 
         fun bindRadioView(answerResponse: Answer?) {
-            itemView?.radioBtnAnswer?.isChecked = false
-            itemView?.radioBtnAnswer?.setOnClickListener {
-
+            answerResponse?.selected = when (answerResponse?.selected) {
+                Selection.TO_SELECT -> Selection.SELECTED
+                Selection.SELECTED -> Selection.NOT_SELECTED
+                else -> Selection.NOT_SELECTED
+            }
+            itemView?.radioBtnAnswer?.isChecked = answerResponse?.selected == Selection.SELECTED
+            itemView?.setOnClickListener {
                 it.post({
+                    answerResponse?.selected = Selection.TO_SELECT
                     notifyDataSetChanged()
-
-                    (it as RadioButton).isChecked = true
                 })
             }
             itemView.answerText.text = answerResponse?.answer_value

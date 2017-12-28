@@ -3,7 +3,6 @@ package com.hexeleries.ambareeshb.vzerve.ui.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.ProgressDialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.location.Location
@@ -48,9 +47,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                             .refreshLocation( 25.80069259999999
                                     ,  55.97619940000004)
                 }
-
         Timber.i("Permission granted $perms")
-
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

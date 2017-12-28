@@ -35,6 +35,7 @@ class ServiceAdapter(private val fragmentManager: android.support.v4.app.Fragmen
             itemView?.setOnClickListener {
                 QuestionFragment.newInstance(0, service?.serviceid ?: 0)
                     .show(fragmentManager,this::class.java.name) }
+
         }
 
 
