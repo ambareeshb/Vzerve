@@ -49,14 +49,14 @@ class QuestionFragment : DialogFragment() {
             it.visibility = View.VISIBLE
             questionLayout?.visibility = View.GONE
         }
-        recyclerAnswer?.apply {
-            layoutManager = LinearLayoutManager(this@QuestionFragment.context, LinearLayoutManager.VERTICAL, false)
-            adapter = AnswerAdapter()
-
-        }
 
         questionViewModel.question.observe(this, Observer { question ->
             questionText.text = question?.question
+            recyclerAnswer?.apply {
+                layoutManager = LinearLayoutManager(this@QuestionFragment.context, LinearLayoutManager.VERTICAL, false)
+                adapter = AnswerAdapter(question?.element ?: "radio")
+
+            }
 
         })
         questionViewModel.answers.observe(this, Observer { answer ->

@@ -7,15 +7,17 @@ import android.view.ViewGroup
 import com.hexeleries.ambareeshb.vzerve.R
 import com.hexeleries.ambareeshb.vzerve.api.Answer
 import com.hexeleries.ambareeshb.vzerve.api.Selection
+import kotlinx.android.synthetic.main.answer_check_box.view.*
 import kotlinx.android.synthetic.main.answers_radio.view.*
 
 /**
  * Created by ambareeshb on 24/12/17.
  * Adapter for answers.
  */
-class AnswerAdapter : RecyclerView.Adapter<AnswerAdapter.ViewHolder>() {
+class AnswerAdapter(private val answerElementType: String) : RecyclerView.Adapter<AnswerAdapter.ViewHolder>() {
     companion object {
-        val VIEW_TYPE_RADIO = 10001
+        val VIEW_TYPE_RADIO = "radio" to 10002
+        val VIEW_TYPE_CHECKBOX = "checkbox" to 10003
     }
 
     var answers: List<Answer>? = null
@@ -37,42 +39,69 @@ class AnswerAdapter : RecyclerView.Adapter<AnswerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder =
             when (viewType) {
-                VIEW_TYPE_RADIO -> ViewHolderRadioAnswer(LayoutInflater.from(parent?.context)
+                VIEW_TYPE_RADIO.second -> ViewHolderRadioAnswer(LayoutInflater.from(parent?.context)
                         .inflate(R.layout.answers_radio, parent, false))
+                VIEW_TYPE_CHECKBOX.second -> ViewHolderCheckBox(LayoutInflater.from(parent?.context)
+                        .inflate(R.layout.answer_check_box, parent, false))
                 else -> ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.answers_radio, parent, false))
             }
 
-    override fun getItemViewType(position: Int): Int = VIEW_TYPE_RADIO
+
+    override fun getItemViewType(position: Int): Int = when (answerElementType) {
+        VIEW_TYPE_RADIO.first -> VIEW_TYPE_RADIO.second
+        VIEW_TYPE_CHECKBOX.first -> VIEW_TYPE_CHECKBOX.second
+        else -> VIEW_TYPE_RADIO.second
+    }
 
     /**
      * If all answers are radio buttons.
      */
     inner class ViewHolderRadioAnswer(view: View) : ViewHolder(view) {
 
-        fun bindRadioView(answerResponse: Answer?) {
-            answerResponse?.selected = when (answerResponse?.selected) {
+        fun bindRadioView(answer: Answer?) {
+            answer?.selected = when (answer?.selected) {
                 Selection.TO_SELECT -> Selection.SELECTED
                 Selection.SELECTED -> Selection.NOT_SELECTED
                 else -> Selection.NOT_SELECTED
             }
-            itemView?.radioBtnAnswer?.isChecked = answerResponse?.selected == Selection.SELECTED
+            itemView?.radioBtnAnswer?.isChecked = answer?.selected == Selection.SELECTED
             itemView?.setOnClickListener {
                 it.post({
-                    answerResponse?.selected = Selection.TO_SELECT
+                    answer?.selected = Selection.TO_SELECT
                     notifyDataSetChanged()
                 })
             }
-            itemView.answerText.text = answerResponse?.answer_value
+            itemView.answerTextRadio.text = answer?.answer_value
         }
+    }
+
+    /**
+     * If Answers are checkboxes.
+     */
+    inner class ViewHolderCheckBox(view: View) : ViewHolder(view) {
+        fun bindCheckBoxView(answer: Answer?) {
+            answer?.selected = when (answer?.selected) {
+                Selection.TO_SELECT,Selection.SELECTED -> Selection.SELECTED
+                else -> Selection.NOT_SELECTED
+            }
+            itemView?.checkboxBtnAnswer?.isChecked = answer?.selected == Selection.SELECTED
+            itemView.answerTextCheckBox.text = answer?.answer_value
+            itemView?.setOnClickListener {
+                answer?.selected = if(answer?.selected == Selection.SELECTED) Selection.NOT_SELECTED else Selection.TO_SELECT
+                notifyDataSetChanged()
+            }
+        }
+
     }
 
     /**
      * Base class for View holder.
      */
     open inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bindView(answerResponse: Answer?) {
+        fun bindView(answer: Answer?) {
             when (this) {
-                is ViewHolderRadioAnswer -> this.bindRadioView(answerResponse)
+                is ViewHolderRadioAnswer -> this.bindRadioView(answer)
+                is ViewHolderCheckBox -> this.bindCheckBoxView(answer)
             }
 
         }

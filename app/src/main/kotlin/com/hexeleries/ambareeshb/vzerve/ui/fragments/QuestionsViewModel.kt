@@ -29,7 +29,6 @@ class QuestionsViewModel(private val app: Application) : AndroidViewModel(app) {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ answers.value = it }, {
                         it.printStackTrace()
-
                         answers.value = ApiResponse()
                     })
         }
