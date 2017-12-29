@@ -5,7 +5,6 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="BoldTitleBlack">
@@ -26,5 +25,21 @@
         <item name="android:fontFamily">@font/montserrat_light</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+    <!--Service answer question-->
+<style name="AnswerStyle">
+    <item name="android:layout_gravity">fill</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:fontFamily">@font/montserrat_thin</item>
+    <item name="android:textColor">@android:color/black</item>
+    <item name="android:padding">@dimen/margin_small</item>
+</style>
+    <!--Slide down enter animation for dialogues-->
+    <style name="DialogSlideDown">
+        <item name="android:windowEnterAnimation">@anim/slide_down</item>
+    </style>
 
+    <style name="NoTitleDialog">
+
+    </style>
 </resources>

@@ -3,30 +3,35 @@
     android:layout_height="wrap_content">
 
     <FrameLayout
-        android:id="@+id/questionLayout"
-        android:animateLayoutChanges="true"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:minHeight="400dp">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/questionLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:animateLayoutChanges="true"
             android:padding="@dimen/margin_medium"
+            android:orientation="vertical"
             tools:context="com.hexeleries.ambareeshb.vzerve.ui.fragments.QuestionFragment">
 
             <TextView
                 android:id="@+id/questionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_medium"
                 android:fontFamily="@font/montserrat_regular"
-                android:textSize="17sp" />
+                android:textSize="20sp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerAnswer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:baselineAligned="false" />
 
 
             <Button
@@ -39,8 +44,7 @@
             android:id="@+id/loadingView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_gravity="center"
- />
+            android:visibility="visible" />
     </FrameLayout>
 </ScrollView>
